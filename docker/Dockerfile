@@ -1,3 +1,10 @@
+#
+#
+# docker run -itd --gpus all holidaysm/anygrasp:0.0.0 /bin/bash
+# docker exec -it 45e630ed09e5 /bin/bash
+#
+#
+
 # Use use previous versions, modify these variables
 # ARG PYTORCH="1.9.0"
 # ARG CUDA="11.1"
@@ -30,3 +37,14 @@ RUN rm -rf /var/lib/apt/lists/*
 ENV MAX_JOBS=4
 RUN git clone --recursive "https://github.com/NVIDIA/MinkowskiEngine"
 RUN cd MinkowskiEngine; python setup.py install --force_cuda --blas=openblas
+
+# Install AnyGrasp
+RUN cd ..
+RUN git clone "https://github.com/graspnet/anygrasp_sdk.git" && \
+    cd anygrasp_sdk && \
+    pip install --ignore-installed -r requirements.txt && \
+    cd pointnet2 && \
+    python setup.py install && \
+    cd .. && \
+    cd ..
+
