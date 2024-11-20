@@ -48,3 +48,5 @@ RUN git clone "https://github.com/graspnet/anygrasp_sdk.git" && \
     cd .. && \
     cd ..
 
+RUN apt-get update
+RUN apt-get install net-tools
