@@ -50,3 +50,7 @@ RUN git clone "https://github.com/graspnet/anygrasp_sdk.git" && \
 
 RUN apt-get update
 RUN apt-get install net-tools
+
+COPY docker_entry.sh docker_entry.sh
+RUN chmod +x docker_entry.sh
+ENTRYPOINT ["sh", "docker_entry.sh"]
