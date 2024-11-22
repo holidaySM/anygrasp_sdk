@@ -7,3 +7,5 @@
 .TimeRecord
 license
 .idea
+grasp_detection/log
+grasp_tracking/log
