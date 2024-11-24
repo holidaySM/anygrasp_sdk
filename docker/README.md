@@ -10,7 +10,7 @@ We provide a Dockerfile for easy installation. You can build the docker image by
 ```bash
     cd docker
     docker build . -t holidaysm/anygrasp:0.0.0
-    docker run -itd -v ~/docker_ssh/:/root/docker_ssh -p 9000:22  holidaysm/anygrasp:0.0.0 /bin/bash
+    docker run -itd -v ~/PycharmProjects/anygrasp_sdk:/root/anygrasp_sdk -v ~/docker_ssh/:/root/docker_ssh -p 9000:22  holidaysm/anygrasp:0.0.0 /bin/bash
     docker exec -it <container_id> /bin/bash
 ```
 

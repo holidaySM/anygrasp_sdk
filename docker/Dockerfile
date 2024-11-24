@@ -49,7 +49,32 @@ RUN git clone "https://github.com/graspnet/anygrasp_sdk.git" && \
     cd ..
 
 RUN apt-get update
-RUN apt-get install net-tools
+RUN apt-get install -y --no-install-recommends net-tools vim unzip htop tmux && \
+    apt-get clean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# GLBC 2.29
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends gawk bison && \
+    apt-get clean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    wget -c https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz && \
+    tar -zxvf glibc-2.29.tar.gz && \
+    cd glibc-2.29 && \
+    mkdir build && \
+    cd build && \
+    ../configure --prefix=/usr/local/glibc-2.29/build --disable-sanity-checks && \
+    make && \
+    make install && \
+    cp /usr/local/glibc-2.29/build/lib/libm-2.29.so /lib/x86_64-linux-gnu/ && \
+    cd /lib/x86_64-linux-gnu/ && \
+    ln -sf libm-2.29.so libm.so.6
+
+
+RUN pip install psutil==5.8.0
 
 COPY docker_entry.sh docker_entry.sh
 RUN chmod +x docker_entry.sh
